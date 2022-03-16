@@ -4,6 +4,7 @@ import com.cursoms.springboot.app.productos.model.entity.Producto;
 import com.cursoms.springboot.app.productos.model.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,14 +19,18 @@ public class ProductoController {
     @Autowired
     private IProductoService productoService;
 
-    @Value("${server.port}")
-    private Integer port;
+    //@Value("${server.port}")
+    //private Integer port;
+
+    @Autowired
+    private Environment env;
 
     @GetMapping("/")
     public List<Producto> listar(){
 
         return productoService.findAll().stream().map(producto -> {
-            producto.setPort(port);
+            //producto.setPort(port);
+            producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
             return producto;
         }).collect(Collectors.toList());
     }
@@ -33,7 +38,8 @@ public class ProductoController {
     @GetMapping("/{id}")
     public Producto getById(@PathVariable Long id){
         Producto producto = productoService.findById(id);
-         producto.setPort(port);
+         //producto.setPort(port);
+        producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
         return producto;
     }
 }
