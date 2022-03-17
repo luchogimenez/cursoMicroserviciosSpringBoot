@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 @Component
-public class EjemploGlobalFilter implements GlobalFilter {
+public class EjemploGlobalFilter implements GlobalFilter, Ordered {
 
     private final Logger logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
     @Override
@@ -32,8 +32,8 @@ public class EjemploGlobalFilter implements GlobalFilter {
         }));
     }
 
-    /*@Override
+    @Override
     public int getOrder() {
-        return -1;
-    }*/
+        return 1;
+    }
 }
