@@ -1,6 +1,7 @@
 package com.cursoms.springboot.app.item.models.service;
 
 import com.cursoms.springboot.app.item.clientes.ProductoClienteRest;
+import com.cursoms.springboot.app.commons.models.entity.Producto;
 import com.cursoms.springboot.app.item.models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -24,5 +25,20 @@ public class ItemServiceFeign implements ItemService {
     @Override
     public Item findById(Long id, Integer cantidad) {
         return new Item(clienteFeign.getById(id),cantidad);
+    }
+
+    @Override
+    public Producto save(Producto producto) {
+        return clienteFeign.crear(producto);
+    }
+
+    @Override
+    public Producto update(Producto producto, Long id) {
+        return clienteFeign.editar(producto,id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        clienteFeign.elimiar(id);
     }
 }

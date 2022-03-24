@@ -1,4 +1,4 @@
-package com.cursoms.springboot.app.productos.model.entity;
+package com.cursoms.springboot.app.commons.models.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

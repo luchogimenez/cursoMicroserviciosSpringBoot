@@ -1,13 +1,13 @@
 package com.cursoms.springboot.app.item.clientes;
 
-import com.cursoms.springboot.app.item.models.Producto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import com.cursoms.springboot.app.commons.models.entity.Producto;
 
 import java.util.List;
 
-@FeignClient(name="servicio-productos",url = "localhost:8001")
+@FeignClient(name="servicio-productos")
 public interface ProductoClienteRest {
 
     @GetMapping("/")
@@ -15,4 +15,13 @@ public interface ProductoClienteRest {
 
     @GetMapping("/{id}")
     public Producto getById(@PathVariable Long id);
+
+    @PostMapping
+    public Producto crear(@RequestBody Producto producto);
+
+    @PutMapping("/{id}")
+    public Producto editar(@RequestBody Producto producto, @PathVariable Long id);
+
+    @DeleteMapping("/{id}")
+    public void elimiar(@PathVariable Long id);
 }

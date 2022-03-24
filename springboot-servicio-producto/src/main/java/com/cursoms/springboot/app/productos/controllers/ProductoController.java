@@ -1,15 +1,12 @@
 package com.cursoms.springboot.app.productos.controllers;
 
-import com.cursoms.springboot.app.productos.model.entity.Producto;
-import com.cursoms.springboot.app.productos.model.service.IProductoService;
+import com.cursoms.springboot.app.commons.models.entity.Producto;
+import com.cursoms.springboot.app.productos.models.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -48,5 +45,30 @@ public class ProductoController {
          //producto.setPort(port);
         producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
         return producto;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto crear(@RequestBody Producto producto){
+
+        return productoService.save(producto);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto editar(@RequestBody Producto prodcuto, @PathVariable Long id){
+        Producto productoDb = productoService.findById(id);
+
+        productoDb.setNombre(prodcuto.getNombre());
+        productoDb.setPrecio(prodcuto.getPrecio());
+
+        return productoService.save(productoDb);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void elimiar(@PathVariable Long id){
+
+        productoService.deleteById(id);
     }
 }
