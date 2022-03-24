@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @RepositoryRestResource(path = "usuarios")
 public interface UsuarioDao extends PagingAndSortingRepository<Usuario,Long> {
 
-    @RestResource(path = "buscan-username")
+    @RestResource(path = "buscar-username")
     public Usuario findByUsername(@Param("username") String username);
 
     @Query("SELECT u FROM Usuario u WHERE u.username=?1")
