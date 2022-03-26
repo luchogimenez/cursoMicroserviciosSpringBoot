@@ -30,6 +30,7 @@ public class Usuario implements Serializable {
     private Boolean enabled;
     private String nombre;
     private String apellido;
+    private Integer intentos;
 
     @Column(unique = true, length = 100)
     private String email;
