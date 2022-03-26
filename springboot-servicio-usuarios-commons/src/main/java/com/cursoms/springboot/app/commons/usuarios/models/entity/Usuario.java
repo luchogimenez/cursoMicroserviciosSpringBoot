@@ -1,4 +1,4 @@
-package com.cursoms.springboot.app.usuarios.models.entity;
+package com.cursoms.springboot.app.commons.usuarios.models.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class Usuario implements Serializable {
     @Column(length = 60)
     private String password;
 
-    private boolean enabled;
+    private Boolean enabled;
     private String nombre;
     private String apellido;
 
