@@ -11,11 +11,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UsuarioService implements UserDetailsService {
+@Service
+public class UsuarioService implements IUsuarioService, UserDetailsService {
 
     @Autowired
     private UsuarioFeignClient client;
@@ -37,5 +39,10 @@ public class UsuarioService implements UserDetailsService {
                 .collect(Collectors.toList());
         log.info("Usuario autenticado: "+ username);
         return new User(usuario.getUsername(),usuario.getPassword(),usuario.getEnabled(),true,true,true,authorities);
+    }
+
+    @Override
+    public Usuario findByUsername(String username) {
+        return client.findByUsername(username);
     }
 }
